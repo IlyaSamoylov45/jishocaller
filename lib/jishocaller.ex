@@ -10,6 +10,18 @@ defmodule JISHOCALLER do
     |> recieve_result(word)
   end
 
+  def search(word, tags, page) when is_integer(page) and page > 0 do
+    tags = merge_tags(tags) |> URI.encode_www_form
+    url_for(word) <> tags <> "&page=#{page}"
+    |> recieve_result(word)
+  end
+
+  def search_by_tags(tags) do
+    merged = merge_tags(tags) |> URI.encode_www_form
+    url_for("") <> merged
+    |> recieve_result(tags)
+  end
+
   defp recieve_result(result, word) do
     result = HTTPoison.get(result, [timeout: 10_000, recv_timeout: 10_000])
     |> parse_json
@@ -19,6 +31,10 @@ defmodule JISHOCALLER do
       _ ->
         %{word => result}
     end
+  end
+
+  defp merge_tags([]) do
+    ""
   end
 
   defp merge_tags(tags) do
@@ -46,7 +62,6 @@ defmodule JISHOCALLER do
 
   defp url_for(word) do
     word = URI.encode(word)
-    IO.puts(word)
     "https://jisho.org/api/v1/search/words?keyword=#{word}"
   end
 
@@ -77,7 +92,7 @@ defmodule JISHOCALLER do
   end
 
   defp metaCheck(_data, %{"status" => _}) do
-    {:error, "Status code not 200"}
+    {:error, "meta status code not 200"}
   end
 
   defp checkEmptyData([]) do
