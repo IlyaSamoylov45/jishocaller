@@ -1,41 +1,39 @@
 defmodule JISHOCALLER do
   def search(word) do
     url_for(word)
-    |> recieve_result(word)
+    |> recieve_result
   end
 
   def search(word, tags) do
     tags = merge_tags(tags) |> URI.encode_www_form
     url_for(word) <> tags
-    |> recieve_result(word)
+    |> recieve_result
   end
 
   def search(word, tags, page) when is_integer(page) and page > 0 do
     tags = merge_tags(tags) |> URI.encode_www_form
     url_for(word) <> tags <> "&page=#{page}"
-    |> recieve_result(word)
+    |> recieve_result
   end
 
   def search_by_tags(tags) do
     merged = merge_tags(tags) |> URI.encode_www_form
     url_for("") <> merged
-    |> recieve_result(tags)
+    |> recieve_result
   end
 
-  defp recieve_result(result, word) do
-    result = HTTPoison.get(result, [timeout: 10_000, recv_timeout: 10_000])
+  def search_by_tags(tags, page) do
+    merged = merge_tags(tags) |> URI.encode_www_form
+    url_for("") <> merged <> "&page=#{page}"
+    |> recieve_result
+  end
+
+  defp recieve_result(result) do
+    HTTPoison.get(result, [timeout: 10_000, recv_timeout: 10_000])
     |> parse_json
-    case result do
-      {:error, _} ->
-        result
-      _ ->
-        %{word => result}
-    end
   end
 
-  defp merge_tags([]) do
-    ""
-  end
+  defp merge_tags([]), do: ""
 
   defp merge_tags(tags) do
     Stream.map(tags, &(check_string(&1)))
@@ -44,21 +42,13 @@ defmodule JISHOCALLER do
     |> Enum.reduce(fn x, acc -> acc <> x end)
   end
 
-  defp check_string(tag) when is_binary(tag) do
-    tag
-  end
+  defp check_string(tag) when is_binary(tag), do: tag
 
-  defp check_string(_) do
-    ""
-  end
+  defp check_string(_), do: ""
 
-  defp add_hashcode("") do
-    ""
-  end
+  defp add_hashcode(""), do: ""
 
-  defp add_hashcode(tag) do
-    " #" <> tag
-  end
+  defp add_hashcode(tag), do: " ##{tag}"
 
   defp url_for(word) do
     word = URI.encode(word)
