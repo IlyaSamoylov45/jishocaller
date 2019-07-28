@@ -65,10 +65,6 @@ defmodule JISHOCALLER do
     {:error, reason}
   end
 
-  defp parse_json(_) do
-    {:error, "parsing data"}
-  end
-
   defp getData(json) do
     try do
       metaCheck(json["data"], json["meta"])
