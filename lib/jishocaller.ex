@@ -61,7 +61,7 @@ defmodule JISHOCALLER do
     |> getData
   end
 
-  defp parse_json({:error,  %HTTPoison.Error{id: _, reason: reason}}) do
+  defp parse_json({_,  %HTTPoison.Error{id: _, reason: reason}}) do
     {:error, reason}
   end
 
