@@ -22,7 +22,7 @@ defmodule JISHOCALLER do
     |> recieve_result
   end
 
-  def search_by_tags(tags, page) do
+  def search_by_tags(tags, page) when is_integer(page) and page > 0 do
     merged = merge_tags(tags) |> URI.encode_www_form
     url_for("") <> merged <> "&page=#{page}"
     |> recieve_result
@@ -61,7 +61,7 @@ defmodule JISHOCALLER do
     |> getData
   end
 
-  defp parse_json({_,  %HTTPoison.Error{id: _, reason: reason}}) do
+  defp parse_json({:error,  %HTTPoison.Error{id: _, reason: reason}}) do
     {:error, reason}
   end
 
