@@ -4,9 +4,11 @@ defmodule JISHOCALLER.MixProject do
   def project do
     [
       app: :jishocaller,
-      version: "0.1.0",
+      version: "1.0.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
       deps: deps()
     ]
   end
@@ -25,4 +27,19 @@ defmodule JISHOCALLER.MixProject do
       {:json, "~> 1.2"}
     ]
   end
+
+  defp description do
+    '''
+    A simple wrapper for the Jisho API (Japanese Dictionary)
+    '''
+  end
+
+  defp package do
+    [
+      maintainers: ["Ilya Samoylov"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/IlyaSamoylov45/jishocaller"}
+    ]
+  end
+
 end
