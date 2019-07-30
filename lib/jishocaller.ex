@@ -2,23 +2,20 @@ defmodule JISHOCALLER do
   @moduledoc """
   Wrapper for the Jisho API found on https://jisho.org/
   Search for a word both in Japanese and English and return the result.
-  You can search by:
-    - word
-    - tag(s)
   """
 
   @doc """
   Search by a word or a term. Returns a JSON result from the call.
 
-  #Parameters:
+  Parameters:
     - Word or term: "String"
 
-  #Result:
+  Result:
     - A list of Maps where each map is a word that has been found.
     - If successful then {:ok, data} is returned where data is a list of maps or it returns {:ok, "No data"} if there is nothing in the result.
     - If unsuccessful this will return {:error, reason}
 
-  #Examples:
+  Examples:
   Searching using an English word:
 
       iex> JISHOCALLER.search("dog")
@@ -48,16 +45,16 @@ defmodule JISHOCALLER do
   @doc """
   Search by a word or a term with tags. Returns a JSON result from the call.
 
-  #Parameters:
+  Parameters:
     - Word or term : "String"
     - List of Strings ["String", "String" . . .]
 
-  #Result:
+  Result:
     - A list of Maps where each map is a word that has been found using the tag(s).
     - If successful then {:ok, data} is returned where data is a list of maps or it returns {:ok, "No data"} if there is nothing in the result.
     - If unsuccessful this will return {:error, reason}
 
-  #Examples:
+  Examples:
   No tags (This is the same as just using search):
 
       iex> JISHOCALLER.search("dog", [])
@@ -84,17 +81,17 @@ defmodule JISHOCALLER do
   @doc """
   Search by a word or a term with tags and a page. Returns a JSON result from the call.
 
-  #Parameters:
+  Parameters:
     - Word or term : "String"
     - List of Strings ["String", "String" . . .]
     - Page Number: Integer
 
-  #Result:
+  Result:
     - A list of Maps where each map is a word that has been found using the word, tag(s), and page number.
     - If successful then {:ok, data} is returned where data is a list of maps or it returns {:ok, "No data"} if there is nothing in the result.
     - If unsuccessful this will return {:error, reason}
 
-  #Examples:
+  Examples:
   A term, no tags, and a page:
 
       iex> JISHOCALLER.search("差す", [], 1)
@@ -121,15 +118,15 @@ defmodule JISHOCALLER do
   @doc """
   Search using tags. Returns a JSON result from the call.
 
-  #Parameters:
+  Parameters:
     - List of Strings ["String", "String" . . .]
 
-  #Result:
+  Result:
     - A list of Maps where each map is a word that has been found using the tag(s).
     - If successful then {:ok, data} is returned where data is a list of maps or it returns {:ok, "No data"} if there is nothing in the result.
     - If unsuccessful this will return {:error, reason}
 
-  #Examples:
+  Examples:
   One tag:
 
       iex> JISHOCALLER.search_by_tags(["jlpt-n5"])
@@ -148,16 +145,16 @@ defmodule JISHOCALLER do
   @doc """
   Search using tags and a page. Returns a JSON result from the call.
 
-  #Parameters:
+  Parameters:
     - List of Strings ["String", "String" . . .]
     - Page Number: Integer
 
-  #Result:
+  Result:
     - A list of Maps where each map is a word that has been found using the tag(s).
     - If successful then {:ok, data} is returned where data is a list of maps or it returns {:ok, "No data"} if there is nothing in the result.
     - If unsuccessful this will return {:error, reason}
 
-  #Examples:
+  Examples:
   One tag and page number:
 
       iex> JISHOCALLER.search_by_tags(["jlpt-n5"], 1)
