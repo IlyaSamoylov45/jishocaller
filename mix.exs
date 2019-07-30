@@ -24,14 +24,15 @@ defmodule JISHOCALLER.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.4"},
-      {:json, "~> 1.2"}
+      {:json, "~> 1.2"},
+      {:ex_doc, "~> 0.21", only: :dev, runtime: false}
     ]
   end
 
   defp description do
-    '''
+    "
     A simple wrapper for the Jisho API (Japanese Dictionary)
-    '''
+    "
   end
 
   defp package do
