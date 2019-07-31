@@ -11,7 +11,8 @@ A powerful Japanese-English dictionary. It lets you find words, kanji, example s
 ### JISHOCALLER Brief Description
 Returns a list of maps with words that match based on words, tags and pages using Jisho API.
 
-### Installation
+## Installation
+___
 Include jishocaller to your deps then run mix deps.get
 ```elixir
 def deps do:
@@ -21,11 +22,12 @@ def deps do:
 end
 ```
 
-### Documentation
+## Documentation
+___
 Documentation found on:
 https://hexdocs.pm/jishocaller/api-reference.html
 
-### Brief Usage
+## Brief Usage
 To search a word use:
 ```elixir
 JISHOCALLER.search("dog")
